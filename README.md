@@ -69,3 +69,7 @@ We assume that:
 ** This is the model you want the explanation to be generated from + categorization.
 
 > python3 ./main.py --data tgbl-subreddit --model llama3
+
+## Running openai models
+
+see `gpt-batch/README.md` for details
