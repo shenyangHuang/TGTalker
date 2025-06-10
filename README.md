@@ -1,5 +1,5 @@
 # TGTalker
-### Official Repository for "Are Large Language Models Good Temporal Graph Learners?"
+### Official Repository for ["Are Large Language Models Good Temporal Graph Learners?"](https://www.arxiv.org/abs/2506.05393)
 
 ![SCPD](figs/overview.png)
 
