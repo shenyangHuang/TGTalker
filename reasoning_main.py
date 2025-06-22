@@ -80,6 +80,9 @@ elif (args.model == "qwen4b"):
 elif (args.model == "qwen8b"):
     print ("using model Qwen/Qwen3-8B")
     model_name = "Qwen/Qwen3-8B"
+elif (args.model == "qwen7b"):
+    print ("using model Qwen/Qwen2.5-7B-Instruct")
+    model_name = "Qwen/Qwen2.5-7B-Instruct"
 elif (args.model == "qwen14b"):
     print ("using model Qwen/Qwen3-14B")
     model_name = "Qwen/Qwen3-14B"
