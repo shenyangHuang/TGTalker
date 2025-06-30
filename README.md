@@ -73,3 +73,15 @@ We assume that:
 ## Running openai models
 
 see `gpt-batch/README.md` for details
+
+## Citation:
+
+If this repo is useful for your project, please consider citing our paper:
+```
+@article{huang2025large,
+  title={Are Large Language Models Good Temporal Graph Learners?},
+  author={Huang, Shenyang and Parviz, Ali and Kondrup, Emma and Yang, Zachary and Ding, Zifeng and Bronstein, Michael and Rabbany, Reihaneh and Rabusseau, Guillaume},
+  journal={arXiv preprint arXiv:2506.05393},
+  year={2025}
+}
+```
