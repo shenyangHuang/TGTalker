@@ -255,7 +255,7 @@ if __name__ == "__main__":
             if (args.nbr > 0):
                 tracker.update(test_src[(i-batch_size):i], test_dst[(i-batch_size):i], test_ts[(i-batch_size):i])
 
-        
+        neighbors = tracker.get_neighbor([test_rows[i][0]]) 
         final_usr_msg = create_user_message(test_rows[i], neighbors)
         final_assistant_msg = create_assistant_message(test_rows[i])
 
