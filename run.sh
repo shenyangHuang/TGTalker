@@ -1,4 +1,4 @@
-#/bin/bash
+#!/bin/bash
 #SBATCH --partition=main  #unkillable #main #long
 #SBATCH --output=wiki_qwen38b_.txt 
 #SBATCH --error=wiki_qwen38b_error.txt   
