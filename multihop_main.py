@@ -31,6 +31,7 @@ parser.add_argument("--wandb", action="store_true", default=False, help="now usi
 parser.add_argument("--test", action="store_true", default=False, help="test data pipeline")
 parser.add_argument('--data', type=str, help='specify which dataset', default='tgbl-wiki')
 parser.add_argument('--nbr', type=int, help='how many neighbors to retrieve from the past', default=0)
+parser.add_argument('--hops', type=int, help='how many hops to sample from', default=1)
 parser.add_argument('--cot_size', type=int, help='how many cot to record until termination', default=5000)
 parser.add_argument('--logfile', type=str, help='where to save the output', default=None)
 
@@ -135,10 +136,10 @@ else:
 
 print (pred_name)
 
-def make_prompt(system_prompt, src, ts, nbr_tracker=None):
+def make_prompt(system_prompt, src, ts, nbr_tracker=None, hops=1):
 
     # add temporal neighbor information
-    user_prompt = make_user_prompt(src, ts, nbr_tracker=nbr_tracker)
+    user_prompt = make_user_prompt(src, ts, nbr_tracker=nbr_tracker, hops=hops)
     prompt = tokenizer.apply_chat_template(
     [
         {
@@ -276,7 +277,7 @@ instruct_strs = []
 answer_strs = []
 for i in range(instruct_size):
     if (args.nbr > 0):
-        instruct_str = make_user_prompt(val_rows[idx+i][0], val_rows[idx+i][2], nbr_tracker=tracker)
+        instruct_str = make_user_prompt(val_rows[idx+i][0], val_rows[idx+i][2], nbr_tracker=tracker, hops=args.hops)
     else:
         instruct_str = make_user_prompt(val_rows[idx+i][0], val_rows[idx+i][2])
     answer_str = make_answer_prompt(val_rows[idx+i][1])
@@ -377,7 +378,7 @@ for i in range(test_rows.shape[0]):
         if (args.nbr > 0):
             tracker.update(test_src[(i-batch_size):i], test_dst[(i-batch_size):i], test_ts[(i-batch_size):i])
 
-    instruct_str = make_user_prompt(test_rows[i][0], test_rows[i][2], nbr_tracker=tracker)
+    instruct_str = make_user_prompt(test_rows[i][0], test_rows[i][2], nbr_tracker=tracker, hops=args.hops)
     answer_str = make_answer_prompt(test_rows[i][1])
     if (cached_str is None):
         history = make_system_prompt(background_rows, instruct_strs, answer_strs, use_icl=args.icl)
@@ -389,7 +390,7 @@ for i in range(test_rows.shape[0]):
     new_answers.append(answer_str)
 
     if (i >= start_idx):
-        predicted_dst, reasoning = send_message(make_prompt(history,test_rows[i][0], test_rows[i][2], nbr_tracker=tracker))
+        predicted_dst, reasoning = send_message(make_prompt(history,test_rows[i][0], test_rows[i][2], nbr_tracker=tracker, hops=args.hops))
         if (args.cache_dst):
             dst_out.append([predicted_dst, test_rows[i][1]])
         if (reasoning != "Error in generating response"):
