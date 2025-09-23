@@ -1,7 +1,7 @@
 # TGTalker
-### Official Repository for ["Are Large Language Models Good Temporal Graph Learners?"](https://www.arxiv.org/abs/2506.05393)
+### Code Repository for "Are Large Language Models Good Temporal Graph Learners?"
 
-![SCPD](figs/overview.png)
+![TGTalker](figs/overview.png)
 
 
 ## Installation Instructions
@@ -10,12 +10,7 @@ module load python=3.10
 python -m venv vllm_env
 source vllm_env/bin/activate
 pip install vllm
-```
-
-install TGB from source to download datasets and run evaluation
-```
-git clone git@github.com:shenyangHuang/TGB.git
-pip install -e .   
+pip install py-tgb
 ```
 
 ## How to run temporal link prediction with `reasoning_main.py`
@@ -54,34 +49,9 @@ We assume that:
 2. Create folder called `answer_cache` under `posthoc_explanations`
 3. copy {{answer_cache}}  to `answer_cache`
 
-### Generate Prompt Cache
-
-**Run the prompt generation
-** Keep `gpt-4.1-mini-2025-04-14`, path currently hard-coded in `main.py`
-
-1. Get prompts (e.g.)
-    > python3 ./generate_reasoning_main.py --batch 100 --model gpt-4.1-mini-2025-04-14 --in_size 5 --bg_size 300 --data tgbl-subreddit --nbr 2 --icl --max_no_of_prompts 5000
-
-2. Create folder called `output` from `gpt-batch` into `posthoc_explanations`
 
 ### Run post-hoc explanation
 
 ** This is the model you want the explanation to be generated from + categorization.
 
-> python3 ./main.py --data tgbl-subreddit --model llama3
-
-## Running openai models
-
-see `gpt-batch/README.md` for details
-
-## Citation:
-
-If this repo is useful for your project, please consider citing our paper:
-```
-@article{huang2025large,
-  title={Are Large Language Models Good Temporal Graph Learners?},
-  author={Huang, Shenyang and Parviz, Ali and Kondrup, Emma and Yang, Zachary and Ding, Zifeng and Bronstein, Michael and Rabbany, Reihaneh and Rabusseau, Guillaume},
-  journal={arXiv preprint arXiv:2506.05393},
-  year={2025}
-}
-```
+> python3 posthoc_explanations/main.py --data tgbl-subreddit --model llama3

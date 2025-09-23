@@ -19,7 +19,6 @@ We assume that:
 ## Generate Prompt Cache
 
 **Run the prompt generation
-** Keep `gpt-4.1-mini-2025-04-14`, path currently hard-coded in `main.py`
 
 1. Get prompts (e.g.)
     > python3 ./generate_reasoning_main.py --batch 100 --model gpt-4.1-mini-2025-04-14 --in_size 5 --bg_size 300 --data tgbl-subreddit --nbr 2 --icl --max_no_of_prompts 5000
